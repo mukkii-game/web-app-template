@@ -6,7 +6,9 @@ test('the starter renders and responds to input', async ({ page }) => {
   await expect(
     page.getByRole('heading', { level: 1, name: 'Web App Starter' }),
   ).toBeVisible();
-  await expect(page.getByText('Ready to build your next idea.')).toBeVisible();
+  await expect(
+    page.getByText('Ready to build something remarkable.'),
+  ).toBeVisible();
 
   const counter = page.getByRole('button', { name: 'Count: 0' });
   await counter.click();
