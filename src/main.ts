@@ -12,7 +12,7 @@ root.innerHTML = `
   <main class="shell">
     <p class="eyebrow">GitHub-centered AI development</p>
     <h1>Web App Starter</h1>
-    <p class="intro">${starterMessage('your next idea')}</p>
+    <p class="intro">${starterMessage('something remarkable')}</p>
     <section class="card" aria-labelledby="counter-title">
       <div>
         <h2 id="counter-title">A tiny interaction</h2>
