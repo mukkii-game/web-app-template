@@ -30,3 +30,7 @@ npm run test:e2e
 
 When creating a repository from this template, replace the starter product name
 and update `SPEC.md`. Keep `.github/**` unchanged during ordinary product work.
+
+`npm test` also verifies that all three workflow callers still use the protected
+`ai-dev-infra@v2` contract, including the permissions and concurrency settings
+that reusable workflows cannot enforce for their callers.

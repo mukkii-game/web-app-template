@@ -32,3 +32,10 @@ both bot auto-merges and human merges, proves the artifact matches the current
 
 Vite `base` is `./`, so the same CI artifact works under
 `https://mukkii-game.github.io/REPOSITORY_NAME/` without rebuilding.
+
+## 2026-08-30 — Infrastructure v2 centralizes Guard and Pages
+
+CI, Merge Guard and Pages are small callers of the protected `ai-dev-infra@v2`
+workflows. The template test suite verifies their exact references, permissions
+and concurrency settings because those caller-owned settings cannot be enforced
+inside a reusable workflow.
