@@ -1,36 +1,22 @@
-import './style.css';
+import Phaser from 'phaser';
+import { Boot } from './scenes/Boot';
+import { Title } from './scenes/Title';
+import { Play } from './scenes/Play';
+import { Result } from './scenes/Result';
 
-import { starterMessage } from './greeting';
+// 論理解像度。縦長スマホ向けなら 540x960、横長なら 960x540 に変える。
+export const GAME_WIDTH = 540;
+export const GAME_HEIGHT = 720;
 
-const root = document.querySelector<HTMLDivElement>('#app');
+const config: Phaser.Types.Core.GameConfig = {
+  type: Phaser.AUTO,
+  parent: 'game-container',
+  width: GAME_WIDTH,
+  height: GAME_HEIGHT,
+  backgroundColor: '#111111',
+  scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
+  input: { gamepad: true, activePointers: 3 },
+  scene: [Boot, Title, Play, Result],
+};
 
-if (root === null) {
-  throw new Error('App root was not found.');
-}
-
-root.innerHTML = `
-  <main class="shell">
-    <p class="eyebrow">GitHub-centered AI development</p>
-    <h1>Web App Starter</h1>
-    <p class="intro">${starterMessage('something remarkable')}</p>
-    <section class="card" aria-labelledby="counter-title">
-      <div>
-        <h2 id="counter-title">A tiny interaction</h2>
-        <p>Replace this screen with a game or app, then let CI verify it.</p>
-      </div>
-      <button type="button" data-counter>Count: 0</button>
-    </section>
-  </main>
-`;
-
-const counter = root.querySelector<HTMLButtonElement>('[data-counter]');
-
-if (counter === null) {
-  throw new Error('Counter button was not found.');
-}
-
-let count = 0;
-counter.addEventListener('click', () => {
-  count += 1;
-  counter.textContent = `Count: ${count}`;
-});
+new Phaser.Game(config);

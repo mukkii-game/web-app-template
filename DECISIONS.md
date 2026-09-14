@@ -39,3 +39,11 @@ CI, Merge Guard and Pages are small callers of the protected `ai-dev-infra@v2`
 workflows. The template test suite verifies their exact references, permissions
 and concurrency settings because those caller-owned settings cannot be enforced
 inside a reusable workflow.
+
+## 2026-09-14 — Rebuilt as the Phaser 4 game template
+
+Replaced the framework-free starter and its PR / merge-guard / central-CI
+plumbing with a Phaser 4 game template: direct push to main, one Pages
+workflow with a Playwright smoke check, one manual itch.io workflow, and a
+small `src/core` layer (save, i18n, audio, input, demo, meta). Rationale in
+mukkii-game/Perfect_Dev_Environment decisions of 2026-09-13.
