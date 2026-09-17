@@ -1,12 +1,11 @@
-# SPEC.md
+# SPEC(企画メモ)
 
-Current product behavior.
+<!-- 人間が書く。数行でよい。AI はこれだけを頼りに作り切る。 -->
 
-## Starter screen
-
-- The page identifies itself as a reusable web app starter.
-- The primary button increments a visible counter.
-- The layout remains usable on narrow and wide screens.
-
-Replace this starter specification with the product's real behavior as the app
-evolves.
+- タイトル:
+- 一言で:
+- 参考(◯◯みたいな):
+- 操作:
+- 勝ち / 負け / 終わり:
+- 絶対に守ること:
+- 追加で読むルール: (なし)

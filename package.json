@@ -1,22 +1,21 @@
 {
-  "name": "web-app-starter",
+  "name": "game-template-web",
+  "version": "1.0.0",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit",
-    "test": "npm run verify:workflows && vitest run",
-    "verify:workflows": "node scripts/verify-workflow-callers.mjs",
-    "test:e2e": "playwright test"
+    "check": "node tools/check.mjs",
+    "record": "node tools/record.mjs"
+  },
+  "dependencies": {
+    "phaser": "^4.0.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.62.1",
-    "@types/node": "^26.4.0",
-    "typescript": "^7.0.2",
-    "vite": "^8.2.2",
-    "vitest": "^4.1.11"
+    "@playwright/test": "^1.55.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.3.1"
   }
 }
