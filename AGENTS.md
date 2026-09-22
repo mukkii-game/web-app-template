@@ -1,6 +1,6 @@
 # AGENTS.md
 
-> 全 AI 共通の作法。Claude は CLAUDE.md の `@AGENTS.md` で、Gemini は設定(contextFileName)でこのファイルを読む。Phaser の API は `.claude/skills/` の SKILL.md を参照。
+> 全 AI 共通の作法。Claude は CLAUDE.md の `@AGENTS.md` で、Gemini は設定(contextFileName)でこのファイルを読む。Phaser の API は `docs/phaser/reference/` を題目ごとに引く(入口は `phaser4` スキル)。
 
 ## これは何か
 - Mukkii の個人開発の作品 1 本。まずパイロット版(遊べるモック)を最短で公開するための repo。
