@@ -19,7 +19,7 @@ Phaser 4 + Vite + TypeScript のブラウザゲーム雛形。push するだけ�
 - `src/core/` save / i18n / audio / input / demo / meta。毎回要るものだけ。
 - `src/scenes/` Boot / Title / Play / Result。Play を作品に置き換える。
 - `tools/check.mjs` 起動確認とスクショ(CI で走る)。`tools/record.mjs` 録画。`tools/promo.sh` 宣伝動画。
-- `.claude/skills/` Phaser 4 公式 skills。
+- `docs/phaser/reference/` Phaser 4 公式ドキュメント(書庫)。入口は `.claude/skills/phaser4/`。
 
 ## ローカル
 ```
