@@ -1,6 +1,6 @@
 name: Build and Deploy (Pages)
 
-# main に push → ビルド → 起動確認(tools/check.mjs)→ GitHub Pages。
+# main に push → ビルド → 起動確認(tools/check.mjs)→ 公開キット(/kit/)→ GitHub Pages。
 # 事前に repo の Settings → Pages → Source を「GitHub Actions」にする。
 
 on:
@@ -39,6 +39,14 @@ jobs:
           name: screenshots
           path: tools/out/*.png
           if-no-files-found: ignore
+      # 公開キット: 配布用 ZIP・スクショ・日英の文面・投稿ページへのリンクを /kit/ の 1 ページに。
+      # 文面は publish.json、画像は kit/assets/ と起動確認のスクショから。
+      - name: Build publish kit
+        run: |
+          SLUG=$(node -p "require('./publish.json').zipName || 'game-html5.zip'")
+          (cd dist && zip -qr "../$SLUG" . -x '.*' 'kit/*')
+          mkdir -p dist/kit && mv "$SLUG" dist/kit/
+          node tools/build-kit.mjs dist publish.json
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
