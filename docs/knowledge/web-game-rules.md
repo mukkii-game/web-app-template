@@ -326,3 +326,46 @@ setInterval(() => {
 | 画面外でエフェクトが出る | 判定関数の副作用＋ブロードフェーズ欠落 |
 | 平均fpsは出ているのに引っかかる | GC（毎フレームの確保）か、瞬間的な重い処理 |
 | スマホだけ重い | GPU 合成・オーバードロー。JSプロファイルには映らない |
+
+---
+
+## 9. 他の作品から回収した実機ノウハウ(2026-10-01 追記)
+
+過去作の docs を洗って見つけたもの。出所の作品名を残す。
+
+### 9-1. iPhone のサイレントスイッチで Web Audio だけ鳴らない(NeoSoukoban v1.20.5)
+
+- 症状: iPhone だけ音が出ない。Android は鳴る。YouTube は iPhone でも鳴る。
+- 原因: iOS では本体のサイレントスイッチで **Web Audio API の音がミュートされる**。
+  一方 `<audio>` / `<video>` 要素の再生はスイッチの影響を受けないことが多い。
+- 対策: 無音の短い WAV をループ再生する `<audio>` 要素を置き、**ユーザー操作のたびに `.play()`**
+  (AudioContext の resume と同じタイミング。再生中なら何もしないので毎回呼んで無害)。
+  `visibilitychange` でアプリ復帰時にも再開を試みる。
+- **注意: Chromium では再現できず、実機 iPhone での効果は未確認**(元の記録にもそう書いてある)。
+  → `src/core/audio.ts` への組み込み(0 層化)は、実機で確かめてから。
+
+### 9-2. やり直し・undo の直後に、古い遅延処理が新しい状態を壊す(NeoSoukoban v1.15.17)
+
+- 症状: 10 回中 4 回だけ、演出が一瞬で終わる。再現が不安定に見える。
+- 原因: `setTimeout` の演出が、リトライ後も生き残って発火し、**新しい試行の状態を消していた**。
+  同じ面をやり直すと配列の添字が同じになるので、古いタイマーが新しい対象を触る。
+- 対策: **世代カウンタ**(`playGen`)を持ち、面の開始・やり直し・undo のたびに +1。
+  遅延処理は発火時に「自分の世代 !== 今の世代」なら何もせず抜ける。
+- Phaser のシーンの `time.delayedCall` はシーン再起動で消えるが、**素の `setTimeout` は消えない**。
+
+### 9-3. スマホで横画面を強制する(ImoteControllDandy)
+
+1. スタート時に全画面 + `screen.orientation.lock('landscape')`(Android Chrome。**ユーザー操作の中でしか許可されない**)
+2. それでも縦のまま(iPhone Safari・自動回転オフ)なら、**アプリ全体を CSS で 90° 回す**
+   (`width:100dvh; height:100dvw; rotate(90deg)`)。このとき**タッチ座標も 90° ずれる**ので変換関数を通し、
+   画面サイズは `window.innerWidth` ではなく回した後の大きさを使う
+3. ホーム画面に追加(PWA)した時は `manifest.webmanifest` の `orientation: landscape` が効く
+- 「横にしてね」の案内は不要になる(縦でも横画面で遊べるため)
+
+### 9-4. 自動テストのヘッドレスブラウザで、ゲームループが止まる(panzer-tokoron)
+
+- **スクショを撮った後に `requestAnimationFrame` が凍結**してループが止まることがある(ヘッドレス Edge で 3 回再現)。
+  長時間の自動プレイでは途中のスクショを避けるか、間隔を短くする。
+- バックグラウンド扱いのタブでは rAF が止まる。
+  `--disable-backgrounding-occluded-windows --disable-features=CalculateNativeWinOcclusion` を付ける。
+- 雛形の `tools/check.mjs` は Chromium で通っているが、**Edge や長時間テストに切り替える時は注意**。
