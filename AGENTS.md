@@ -26,9 +26,9 @@
 ## 技術の既定値
 - Phaser 4 + Vite + TypeScript。小さいものは素の canvas / DOM でもよい。
 - 3D は動きの激しいものは Babylon.js、見せるのが主なら Three.js。
-- `src/core/`(save, i18n, audio, input, demo, meta)を先に使え。同じものを作り直すな。
+- `src/core/`(save, i18n, audio, input, demo, meta, rng, replay)を先に使え。同じものを作り直すな。
 - 型で止まるな。動く方を優先。ビルド出力は `dist/`、Vite の `base` は `./`(深い URL や iframe でも動く)。
-- **ゲームの中身と描画を分けろ。乱数は seed 付きにし、seed + 操作の列で同じプレイを再現できるようにしろ**(再現データは文字列にしてコピーできる形に)。AI の確認はゲームの中身だけを bot で回して行う。
+- **ゲームの中身と描画を分けろ。乱数は `core/rng.ts`(Math.random 禁止)、操作の記録と再生は `core/replay.ts` を使え**(`?seed=` `?replay=` で再現できる)。AI の確認はゲームの中身だけを bot で回して行う。
 - `?auto=1` で自動プレイが走るようにしろ(`core/demo.ts` に update を実装)。CI の確認と宣伝動画に使う。
 - `?lang=en` で英語になるようにしろ。文字列は `i18n` を通せ。
 

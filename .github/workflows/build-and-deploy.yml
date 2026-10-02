@@ -28,6 +28,7 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm run build
+      - run: npm run test:replay
       - name: Install Chromium for check
         run: npx playwright install --with-deps chromium
       - name: Smoke check (auto play, no console errors)
