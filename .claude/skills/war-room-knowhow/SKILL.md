@@ -1,6 +1,6 @@
 ---
 name: war-room-knowhow
-description: 素材・道具・AI モデル選び、ジャンルの定石、公開手続き(Steam/BOOTH/itch 等)、ローカル AI、既知の地雷で迷った時に、作戦会議室の最新の資料を引く。自分の記憶で答える前に使う。
+description: 素材・道具・AI モデル選び、ジャンルの定石、公開手続き(Steam/BOOTH/itch 等)、PC の道具(VOICEVOX・ComfyUI 等)の場所、他の AI(GPT/Codex)に意見を聞く方法、既知の地雷で迷った時に、作戦会議室の最新の資料を引く。自分の記憶で答える前に使う。
 ---
 
 # 作戦会議室の資料を引く
@@ -17,6 +17,8 @@ description: 素材・道具・AI モデル選び、ジャンルの定石、公�
 | 公開・販売の手続き | `knowledge/tables/procedures.csv`, `knowledge/platforms.md` |
 | エンジン選び | `knowledge/engines.md` |
 | ローカル AI(ComfyUI・LLM) | `knowledge/local-ai.md` |
+| PC の道具の場所(`G:\マイドライブ\ai\tools\` 等) | `global/pc-setup.md` |
+| GPT/Codex に意見を聞く・画像を頼む | `topics/14-other-ai-routes.md` |
 | 環境の地雷 | `knowledge/env-gotchas.md` |
 | 一覧 | `knowledge/README.md` |
 
