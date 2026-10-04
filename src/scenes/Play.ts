@@ -6,14 +6,13 @@ import { DemoDriver, expose } from '../core/demo';
 import { sfx } from '../core/audio';
 import { t } from '../core/i18n';
 import { save, load } from '../core/save';
-
-const DURATION = 20;
+import { tune } from '../core/tuning';
 
 export class Play extends Phaser.Scene {
   private input2!: UnifiedInput;
   private player!: Phaser.GameObjects.Rectangle;
   private score = 0;
-  private timeLeft = DURATION;
+  private timeLeft = 0;
   private scoreText!: Phaser.GameObjects.Text;
   private timeText!: Phaser.GameObjects.Text;
   private demo!: DemoDriver;
@@ -23,7 +22,7 @@ export class Play extends Phaser.Scene {
   create() {
     expose('scene', 'Play');
     const { width, height } = this.scale;
-    this.score = 0; this.timeLeft = DURATION;
+    this.score = 0; this.timeLeft = tune('game.duration');
     this.cameras.main.setBackgroundColor('#0f2027');
     this.input2 = new UnifiedInput(this);
     this.player = this.add.rectangle(width / 2, height * 0.7, 40, 40, 0x4ecdc4);
@@ -40,8 +39,8 @@ export class Play extends Phaser.Scene {
   }
 
   private addScore() {
-    this.score += 10; sfx.score(); expose('score', this.score);
-    this.tweens.add({ targets: this.player, scale: 1.3, yoyo: true, duration: 80 });
+    this.score += tune('score.per'); sfx.score(); expose('score', this.score);
+    this.tweens.add({ targets: this.player, scale: tune('juice.pop'), yoyo: true, duration: 80 });
   }
 
   private updateHud() {
@@ -53,7 +52,7 @@ export class Play extends Phaser.Scene {
     const dt = deltaMs / 1000;
     this.input2.update();
     const s = this.input2.state;
-    const speed = 300;
+    const speed = tune('player.speed');
     const dx = (s.right ? 1 : 0) - (s.left ? 1 : 0) + s.axisX;
     this.player.x = Phaser.Math.Clamp(this.player.x + dx * speed * dt, 20, this.scale.width - 20);
     if (s.action) this.addScore();
