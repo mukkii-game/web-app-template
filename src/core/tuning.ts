@@ -69,7 +69,7 @@ export function toggleTuning() {
   panel.style.cssText = 'position:fixed;top:8px;right:8px;width:min(320px,90vw);max-height:90vh;overflow:auto;'
     + 'background:rgba(0,0,0,.85);color:#fff;font:14px sans-serif;padding:12px;border-radius:8px;z-index:9999';
   const head = document.createElement('div');
-  head.innerHTML = '<b>調整</b> <small>(ESC で閉じる。多くの値は次のプレイから効く)</small>';
+  head.innerHTML = '<b>調整</b> <small>(F2 で閉じる。多くの値は次のプレイから効く)</small>';
   const btns = document.createElement('div');
   btns.style.cssText = 'display:flex;gap:8px;margin-top:8px';
   const copy = document.createElement('button');
@@ -84,7 +84,7 @@ export function toggleTuning() {
 }
 
 export function installTuning() {
-  window.addEventListener('keydown', (e) => { if (e.key === 'Escape') toggleTuning(); });
+  window.addEventListener('keydown', (e) => { if (e.key === 'F2') { e.preventDefault(); toggleTuning(); } });
   // スマホ: 左上の隅を 1 秒以内に 3 回タップ
   let taps: number[] = [];
   window.addEventListener('pointerdown', (e) => {
