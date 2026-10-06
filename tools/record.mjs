@@ -14,8 +14,14 @@ const server = createServer(async (req, res) => {
   catch { res.writeHead(404); res.end(); }
 }).listen(0);
 const port = server.address().port;
-const browser = await chromium.launch({ executablePath: process.env.PW_CHROMIUM || undefined });
-const ctx = await browser.newContext({ viewport: { width: 540, height: 720 }, recordVideo: { dir: OUT, size: { width: 540, height: 720 } } });
+// 画面の大きさは VIEWPORT=960x540 のように変えられる(横長の作品向け)。
+const [VW, VH] = (process.env.VIEWPORT ?? '540x720').split('x').map(Number);
+// Playwright の版が合わずブラウザが見つからない環境(クラウド等)では、入っている Chromium を使う。
+const { existsSync } = await import('node:fs');
+const FALLBACK = '/opt/pw-browsers/chromium';
+const executablePath = process.env.PW_CHROMIUM || (existsSync(FALLBACK) ? FALLBACK : undefined);
+const browser = await chromium.launch({ executablePath });
+const ctx = await browser.newContext({ viewport: { width: VW, height: VH }, recordVideo: { dir: OUT, size: { width: VW, height: VH } } });
 const page = await ctx.newPage();
 await page.goto(`http://127.0.0.1:${port}/?auto=1`);
 await page.waitForTimeout(SECONDS * 1000);

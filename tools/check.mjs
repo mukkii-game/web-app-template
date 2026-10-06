@@ -26,8 +26,13 @@ const server = createServer(async (req, res) => {
 const port = server.address().port;
 const url = `http://127.0.0.1:${port}/?auto=1`;
 
-const browser = await chromium.launch({ executablePath: process.env.PW_CHROMIUM || undefined });
-const page = await browser.newPage({ viewport: { width: 540, height: 720 } });
+// 画面の大きさは VIEWPORT=960x540 のように変えられる(横長の作品向け)。
+const [VW, VH] = (process.env.VIEWPORT ?? '540x720').split('x').map(Number);
+// Playwright の版が合わずブラウザが見つからない環境(クラウド等)では、入っている Chromium を使う。
+const FALLBACK = '/opt/pw-browsers/chromium';
+const executablePath = process.env.PW_CHROMIUM || (existsSync(FALLBACK) ? FALLBACK : undefined);
+const browser = await chromium.launch({ executablePath });
+const page = await browser.newPage({ viewport: { width: VW, height: VH } });
 const errors = [];
 page.on('pageerror', e => errors.push(`pageerror: ${e.message}`));
 page.on('console', m => { if (m.type() === 'error') errors.push(`console: ${m.text()}`); });
