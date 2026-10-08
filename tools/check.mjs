@@ -44,12 +44,20 @@ await page.goto(url, { waitUntil: 'load' });
 await page.waitForTimeout(4500);
 await page.screenshot({ path: `${OUT}/02-play.png` });
 const s1 = await page.evaluate(() => window.__game?.score ?? 0);
+// AI の口(core/probe.ts): 作品が使っていれば、状態が JSON で読め、知らない操作は理由つきで拒否されること
+const probe = await page.evaluate(() => {
+  const g = window.__game;
+  if (!g?.state) return { used: false, ok: true };
+  try { JSON.parse(g.state()); } catch { return { used: true, ok: false, why: 'state() is not JSON' }; }
+  const r = g.act?.('__no_such_action__');
+  return { used: true, ok: !!r && r.ok === false && !!r.reason, actions: g.actions?.() };
+});
 await page.waitForTimeout(Math.max(0, SECONDS * 1000 - 4500));
 const s2 = await page.evaluate(() => window.__game?.score ?? 0);
 const scene = await page.evaluate(() => window.__game?.scene);
 await page.screenshot({ path: `${OUT}/03-late.png` });
 await browser.close(); server.close();
 
-const ok = errors.length === 0 && s2 > s1;
-console.log(JSON.stringify({ ok, seconds: SECONDS, scoreStart: s1, scoreEnd: s2, scene, errors: errors.slice(0, 5) }, null, 2));
+const ok = errors.length === 0 && s2 > s1 && probe.ok;
+console.log(JSON.stringify({ ok, seconds: SECONDS, scoreStart: s1, scoreEnd: s2, scene, probe, errors: errors.slice(0, 5) }, null, 2));
 process.exit(ok ? 0 : 1);

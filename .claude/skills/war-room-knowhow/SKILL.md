@@ -21,6 +21,7 @@ description: 新作の作り始め(元ネタ・参考コード探し)、素材�
 | PC の道具の場所(`G:\マイドライブ\ai\tools\` 等) | `global/pc-setup.md` |
 | GPT/Codex に意見を聞く・画像を頼む | `topics/14-other-ai-routes.md` |
 | ゲームに AI を入れる(会話 LLM・判定 Clef・ルールの選び方) | `knowledge/ai-in-games.md` |
+| 面白さの調整・AI への頼み方・AI にテストプレイさせる | `knowledge/game-design.md`, `knowledge/process-patterns.md` |
 | 環境の地雷 | `knowledge/env-gotchas.md` |
 | 一覧 | `knowledge/README.md` |
 
