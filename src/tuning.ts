@@ -11,5 +11,7 @@ export const KNOBS: Knob[] = [
   { key: 'player.speed', label: '自機の速さ', value: 300, min: 50, max: 800, step: 10, unit: 'px/秒', aim: '画面の端から端まで約2秒' },
   { key: 'game.duration', label: '制限時間', value: 20, min: 5, max: 120, step: 1, unit: '秒', aim: '1回が短く、すぐもう1回やりたくなる' },
   { key: 'score.per', label: '1回の加点', value: 10, min: 1, max: 100, step: 1, unit: '点' },
+  { key: 'audio.sfx', label: '効果音の音量', value: 0.45, min: 0, max: 1, step: 0.05, unit: '倍', aim: '控えめから。AI は音を聴かずに大きめを選びがち' },
+  { key: 'audio.bgm', label: 'BGM の音量', value: 0.45, min: 0, max: 1, step: 0.05, unit: '倍', aim: 'マスタリング済みの曲(平均 -10dB 前後)はそのままだと大きい' },
   { key: 'juice.pop', label: '加点時の膨らみ', value: 1.3, min: 1, max: 2, step: 0.05, unit: '倍', aim: '押した手応え' },
 ];
