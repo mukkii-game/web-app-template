@@ -41,7 +41,7 @@
 
 ## 公開
 - 公開前に **`publish.json`** の空欄を日英で埋めろ(文面の唯一の置き場)。push すると `/kit/` に公開キット(ZIP・スクショ・文面・投稿リンク)ができる。
-- `index.html` の og:* を埋め、`public/og.png` にゲーム画面を置け(無いと Facebook 等でリンクに絵が出ない)。
+- `index.html` の og:* を埋め、`public/og.png`(1200×630)にゲーム画面を置け。見た目を変えたら撮り直せ(Facebook は古い結果を覚えるので、人間がシェアデバッガーで取り直す)。
 - main に push すれば Pages に出る。itch.io は `publish-itch` の手動ボタン。
 - `.github/` も必要なら変えてよい。変えたら理由を `QUESTIONS.md` に 1 行残せ。
 

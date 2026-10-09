@@ -332,6 +332,8 @@ setInterval(() => {
 | アプリ内ブラウザで横向きにならない | 向きが縦に固定されている。入れ物を CSS で回し、縮尺とタップ座標を自前で(§9-8) |
 | Phaser の字が欠ける・フォントが違う | 1 文字ずつの Text / Web フォントの読み込み前に描いた(§9-9) |
 | bot の成績が急に崩れた | バランスより先に中身のバグ(写しと状態の上書き順など)(§9-10) |
+| Canvas の切り抜きが薄く残る | 切る形の fillStyle が半透明のまま。不透明にする(§9-12) |
+| Facebook でリンクに絵が出ない | og:image:width/height が無い・古い結果を覚えている。シェアデバッガーで取り直す(§9-13) |
 | 音が大きいと言われる | AI の音量は大きめになりがち。`audio.sfx` / `audio.bgm` を下げる(§9-11) |
 
 ---
@@ -434,6 +436,22 @@ setInterval(() => {
 - やり方: 曲の BPM と最初の拍を、音の立ち上がりの自己相関で測る(ffmpeg で生の波形に → numpy)。再生開始時刻と `AudioContext.currentTime` から曲の位置 → 拍の位置を出して、跳ねる周期に使う。ループで戻っても曲の位置から計算するのでずれない。
 - 音量: AI が決める音量は大きめになりがち(聴かずに「ちゃんと聞こえる」値を選ぶ)。効果音と BGM は別のつまみ `audio.sfx` / `audio.bgm`(既定 0.45、`core/audio` の `sfxVolume()` / `bgmVolume()`)。
 - 未確認: 人の耳でのずれの許容幅。
+
+### 9-12. Canvas の切り抜きが薄く残る(obake-chochin 2026-10-08)
+
+- 症状: `globalCompositeOperation = 'destination-out'` で三日月を切り抜いたら、影の部分がうっすら明るく残った。
+- 原因: 直前に塗った色(透明度 35%)の fillStyle が残っていて、切り抜きも 35% しか効かなかった。
+- 修正: 切る前に `fillStyle = '#000'`(不透明)にする。
+- 確かめ方: 画面で三日月・ふくらむ月・満月が描き分けられた。
+- 未確認: なし。
+
+### 9-13. Facebook でリンクに絵が出ない(obake-chochin 2026-10-08、ほかの作品でも)
+
+- 症状: og:image は絶対 URL、`public/og.png`(1200×630)もあるのに、Facebook のリンクに絵が出ない。
+- 原因(見込み): `og:image:width` / `height` が無いと、初回に絵を後回しにして絵なしのまま覚えることがある。Facebook は一度取った結果を長く覚える。og.png が作り始めの古い画面のままだった。
+- 修正: 雛形の index.html に width / height / type / secure_url / alt と twitter:image を最初から入れた。見た目を変えたら og.png を撮り直す。
+- 確かめ方: 人間が https://developers.facebook.com/tools/debug/ に URL を入れて「もう一度取得」。
+- 未確認: Facebook での表示(クラウドからは届かない)。
 
 ## 10. AI に作らせるゲームは「再現できる」形にする(erukiti 2026-10-01 / NeoSoukoban の実例)
 
