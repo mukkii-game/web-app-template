@@ -29,7 +29,7 @@
 - 3D は動きの激しいものは Babylon.js、見せるのが主なら Three.js。
 - `src/core/`(save, i18n, audio, input, demo, meta, rng, replay, tuning, probe)を先に使え。同じものを作り直すな。
 - 型で止まるな。動く方を優先。ビルド出力は `dist/`、Vite の `base` は `./`(深い URL や iframe でも動く)。
-- **ゲームの中身と描画を分けろ。乱数は `core/rng.ts`(Math.random 禁止)、操作の記録と再生は `core/replay.ts` を使え**(`?seed=` `?replay=` で再現できる)。AI の確認はゲームの中身だけを bot で回して行う。AI が遊ぶ口(状態を文字で・意味単位の操作・禁止はコードで拒否)は `core/probe.ts`。
+- **ゲームの中身と描画を分けろ。乱数は `core/rng.ts`(Math.random 禁止)、操作の記録と再生は `core/replay.ts` を使え**(`?seed=` `?replay=` で再現できる)。中身の見本は `src/game/logic.ts`(1/60 秒刻みの step。画面の Hz で結果が変わらない)。AI の確認は `src/game/bots.ts` のボットを `npm run sim` で並べて比べる(何もしない・でたらめ・考える・指の遅れ)。AI が遊ぶ口(状態を文字で・意味単位の操作・禁止はコードで拒否)は `core/probe.ts`。
 - **手触り・難易度に効く数値はコードに直書きせず `src/tuning.ts` に置け**(名前・単位・狙いを付ける)。F2 で調整パネルが出て、人間がその場で直せる。曖昧な注文(「もっと気持ちよく」)は、どのつまみを何から何へ動かすかに直して返せ。
 - `?auto=1` で自動プレイが走るようにしろ(`core/demo.ts` に update を実装)。CI の確認と宣伝動画に使う。
 - `?lang=en` で英語になるようにしろ。文字列は `i18n` を通せ。
@@ -63,4 +63,5 @@
 npm ci && npm run dev      # 開発
 npm run build              # dist/
 node tools/check.mjs       # 起動確認 + スクショ
+npm run sim                # ボット比較(描画なし)
 ```
