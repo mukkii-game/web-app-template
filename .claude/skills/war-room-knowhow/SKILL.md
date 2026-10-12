@@ -15,7 +15,7 @@ description: 新作の作り始め(元ネタ・参考コード探し)、素材�
 | 素材・道具・ライブラリの出どころ | `knowledge/tables/assets.csv` |
 | ジャンルの定石(**作り始める前にまず読む**) | `knowledge/genres/<ジャンル>.md`(例: `shmup.md`)。無ければ `knowledge/tables/genres.csv` の行 |
 | 何を見ればいいか分からない | `knowledge/howto-index.md` |
-| 「◯◯みたいなの」を作り始める(元ネタ・公開コードの探し方、ライセンス) | `knowledge/start-from-reference.md` |
+| 「◯◯みたいなの」を作り始める(元ネタ・公開コードの探し方、ライセンス) | `knowledge/start-from-reference.md`。**参考になる公開コードはジャンル別に `knowledge/tables/refs.csv`**(取り込める / 読むだけ・見るファイルつき) |
 | 公開・販売の手続き | `knowledge/tables/procedures.csv`, `knowledge/platforms.md` |
 | エンジン選び | `knowledge/engines.md` |
 | ローカル AI(ComfyUI・LLM) | `knowledge/local-ai.md` |
