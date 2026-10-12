@@ -38,4 +38,5 @@ jobs:
           claude_args: |
             --model claude-sonnet-5-5
             --max-turns 60
-            --append-system-prompt "日本語で書く。Issue を依頼書として最後までやり、途中で質問しない(分からない点は仮決めして報告に書く)。成果物は repo のファイル(調べ物は research/ の下)にして新しいブランチに commit し、PR を作る。最後に Issue へ『何を・どこに・何件・残った課題』を短くコメントする。止まる時も理由をコメントしてから止まる。"
+            --allowedTools "Bash(git fetch origin *),WebFetch(domain:github.com),WebFetch(domain:raw.githubusercontent.com)"
+            --append-system-prompt "日本語で書く。Issue を依頼書として最後までやり、途中で質問しない(作り方の迷いは仮決めして報告に書く。調べ物の事実は推測で埋めず、不明・保留と報告する)。成果物は repo のファイル(調べ物は research/ の下)にして新しいブランチに commit し、PR を作る。最後に Issue へ『何を・どこに・何件・残った課題』を短くコメントする。止まる時も理由をコメントしてから止まる。"
