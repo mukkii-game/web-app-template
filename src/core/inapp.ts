@@ -4,8 +4,9 @@
 //  - Android: intent:// で Chrome(無ければ既定のブラウザ)を開く
 //  - iPhone: x-safari-https:// で Safari を開く(iOS 17 以降の報告あり。効かない機種もあるので、URL のコピーと手順も出す)
 // ?inapp=1 で強制表示(PC で見た目を確かめる)。?inapp=0 で出さない。× で閉じるとそのタブでは出さない。
-import { query } from './meta';
-import { lang } from './i18n';
+// 他のファイルに依存しない(雛形でない作品にも、このファイルだけ写せば使える)。
+const query = new URLSearchParams(location.search);
+const lang = (): 'ja' | 'en' => (query.get('lang') === 'en' || (query.get('lang') !== 'ja' && !navigator.language.startsWith('ja')) ? 'en' : 'ja');
 
 const APPS: [string, RegExp][] = [
   ['LINE', /\bLine\//i],
