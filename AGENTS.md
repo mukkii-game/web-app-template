@@ -1,4 +1,5 @@
 # AGENTS.md
+<!-- war-room-minimum: 雛形(全部入り) -->
 
 > 全 AI 共通の作法。Claude は CLAUDE.md の `@AGENTS.md` で、Gemini は設定(contextFileName)でこのファイルを読む。Phaser の API は `docs/phaser/reference/` を題目ごとに引く(入口は `phaser4` スキル)。
 
