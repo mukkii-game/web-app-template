@@ -4,6 +4,7 @@ import { Title } from './scenes/Title';
 import { Play } from './scenes/Play';
 import { Result } from './scenes/Result';
 import { installTuning } from './core/tuning';
+import { installInAppBanner } from './core/inapp';
 
 // 論理解像度。縦長スマホ向けなら 540x960、横長なら 960x540 に変える。
 export const GAME_WIDTH = 540;
@@ -22,3 +23,4 @@ const config: Phaser.Types.Core.GameConfig = {
 
 new Phaser.Game(config);
 installTuning();
+installInAppBanner(); // SNS のアプリ内ブラウザなら「ブラウザで開く」を出す(core/inapp.ts)
