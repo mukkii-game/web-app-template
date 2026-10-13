@@ -1,7 +1,7 @@
 // 「動くサンプル」の描画側。ゲームの中身は src/game/logic.ts にあり、ここは入力を集めて見せるだけ。
 // 作品は logic.ts と、このシーンの見た目を置き換える。core の使い方の見本として残す。
 import Phaser from 'phaser';
-import { UnifiedInput } from '../core/input';
+import { UnifiedInput, TouchMode } from '../core/input';
 import { DemoDriver, expose } from '../core/demo';
 import { sfx } from '../core/audio';
 import { t } from '../core/i18n';
@@ -45,7 +45,7 @@ export class Play extends Phaser.Scene {
     expose('replay', () => this.rec.toString()); // 今のプレイの記録。?replay=<これ> で同じプレイになる
 
     this.cameras.main.setBackgroundColor('#0f2027');
-    this.input2 = new UnifiedInput(this);
+    this.input2 = new UnifiedInput(this, { touch: tune<string>('input.touch') as TouchMode });
     this.player = this.add.rectangle(this.state.x, height * 0.7, 40, 40, 0x4ecdc4);
     this.scoreText = this.add.text(12, 12, '', { fontSize: '20px', color: '#fff', fontFamily: 'sans-serif' });
     this.timeText = this.add.text(width - 12, 12, '', { fontSize: '20px', color: '#fff', fontFamily: 'sans-serif' }).setOrigin(1, 0);
@@ -68,8 +68,9 @@ export class Play extends Phaser.Scene {
   /** 人の入力を、ゲームの中身が受け取る形に直す */
   private humanInput(): Input {
     const s = this.input2.state;
-    let dx = (s.right ? 1 : 0) - (s.left ? 1 : 0) + s.axisX;
-    if (dx !== 0) this.targetX = null; // 人の入力が優先
+    let dx = s.axisX; // キー・十字・スティック・バーチャルパッドがまとまった量
+    if (s.target) this.targetX = s.target.x; // direct: 指・マウスの位置へ
+    if (dx !== 0) this.targetX = null; // キー・スティックが優先
     else if (this.targetX !== null) {
       const d = this.targetX - this.state.x;
       if (Math.abs(d) < 4) this.targetX = null; else dx = Math.sign(d);
