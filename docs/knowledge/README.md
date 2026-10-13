@@ -8,3 +8,4 @@
 | `itch-mobile.md` | itch.io × iPhone。埋め込み・butler・入力の 6 系統登録 |
 
 出所は Galaxtris(tetrishoot)の開発。**次の作品でまた溶かさないために持ち出した**(2026-09-22)。
+- `controls.md`: 操作の既定(キーボード&マウス・スマホ・コントローラの割り当て表)
