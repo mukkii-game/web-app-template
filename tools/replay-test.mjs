@@ -12,7 +12,7 @@ const sb = Array.from({ length: 5 }, () => b.int(1, 100));
 const rec = new Recorder(42); rec.push(3, 'L'); rec.push(10, 'A'); rec.push(10, 'R');
 const back = decodeRecording(rec.toString())!; const p = new Player(back);
 const replayed = [3, 10].map((f) => p.input(f));
-// 画面が 60Hz でも 120Hz でも、同じ秒数なら中身は同じになるか(FixedStep + logic)
+// 画面が 60Hz でも 120・144・240Hz でも、同じ秒数なら中身は同じになるか(FixedStep + logic)。高リフレッシュの画面で壊れる市販作の例あり(2026-10)
 import { FixedStep } from '../src/core/fixedstep';
 import { TICK, init, step, encodeInput, decodeInput } from '../src/game/logic';
 import { BOTS } from '../src/game/bots';
@@ -23,7 +23,8 @@ function run(hz: number) {
   return { s, r };
 }
 const r60 = run(60), r120 = run(120);
-const sameHz = r60.s.score === r120.s.score && Math.abs(r60.s.x - r120.s.x) < 1e-6 && r60.s.tick === r120.s.tick;
+const same = (a: any) => r60.s.score === a.s.score && Math.abs(r60.s.x - a.s.x) < 1e-6 && r60.s.tick === a.s.tick;
+const sameHz = [r120, run(144), run(240)].every(same);
 // 記録を再生すると同じ結果になるか
 const pl = new Player(decodeRecording(r60.r.toString())!), s2 = init(cfg, 7);
 while (!s2.over) step(s2, decodeInput(pl.input(s2.tick)), cfg);
