@@ -19,7 +19,8 @@ description: 新作の作り始め(元ネタ・参考コード探し)、素材�
 | 公開・販売の手続き | `knowledge/tables/procedures.csv`, `knowledge/platforms.md` |
 | エンジン選び | `knowledge/engines.md` |
 | ローカル AI(ComfyUI・LLM) | `knowledge/local-ai.md` |
-| PC の道具の場所(`G:\マイドライブ\ai\tools\` 等) | `global/pc-setup.md` |
+| PC の道具の場所(`G:\マイドライブ\ai\tools\`・開発道具 `C:\Dev\tools` / `E:\Dev\tools` 等) | `global/pc-setup.md`, `knowledge/tables/my-env.csv` |
+| プレイ動画・録画(ブラウザは Playwright、Windows のゲームは ffmpeg) | `knowledge/catalog-tools.md`「動画・公開物」 |
 | GPT/Codex に意見を聞く・画像を頼む | `topics/14-other-ai-routes.md` |
 | ゲームに AI を入れる(会話 LLM・判定 Clef・ルールの選び方) | `knowledge/ai-in-games.md` |
 | 面白さの調整・AI への頼み方・AI にテストプレイさせる | `knowledge/game-design.md`, `knowledge/process-patterns.md` |
