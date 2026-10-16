@@ -31,7 +31,7 @@
 - 3D は動きの激しいものは Babylon.js、見せるのが主なら Three.js。
 - `src/core/`(save, i18n, audio, input, demo, meta, rng, replay, tuning, probe)を先に使え。同じものを作り直すな。
 - 型で止まるな。動く方を優先。ビルド出力は `dist/`、Vite の `base` は `./`(深い URL や iframe でも動く)。
-- **ゲームの中身と描画を分けろ。乱数は `core/rng.ts`(Math.random 禁止)、操作の記録と再生は `core/replay.ts` を使え**(`?seed=` `?replay=` で再現できる)。中身の見本は `src/game/logic.ts`(1/60 秒刻みの step。画面の Hz で結果が変わらない)。AI の確認は `src/game/bots.ts` のボットを `npm run sim` で並べて比べる(何もしない・でたらめ・考える・指の遅れ)。AI が遊ぶ口(状態を文字で・意味単位の操作・禁止はコードで拒否)は `core/probe.ts`。
+- **ゲームの中身と描画を分けろ。乱数は `core/rng.ts`(Math.random 禁止)、操作の記録と再生は `core/replay.ts` を使え**(`?seed=` `?replay=` で再現できる)。中身の見本は `src/game/logic.ts`(1/60 秒刻みの step。画面の Hz で結果が変わらない)。AI の確認は `src/game/bots.ts` のボットを `npm run sim` で並べて比べる(何もしない・でたらめ・考える・指の遅れ)。状態と出来事・文の食い違いは `npm run audit`(規則は `src/game/audit.ts`)で AI を使わず数え、AI の読み手は機械で分からない観点だけに使う。AI が遊ぶ口(状態を文字で・意味単位の操作・禁止はコードで拒否)は `core/probe.ts`。
 - **手触り・難易度に効く数値はコードに直書きせず `src/tuning.ts` に置け**(名前・単位・狙いを付ける)。F2 で調整パネルが出て、人間がその場で直せる。曖昧な注文(「もっと気持ちよく」)は、どのつまみを何から何へ動かすかに直して返せ。
 - `?auto=1` で自動プレイが走るようにしろ(見本は `bots.ts` の think を人と同じ入口で動かす)。CI の確認と宣伝動画に使う。
 - **操作はキーボード&マウス・スマホ・コントローラの 3 つ全部に対応しろ。** 既定の割り当ては `docs/knowledge/controls.md`(実装は `core/input.ts`)。変えたら SPEC に書け。
